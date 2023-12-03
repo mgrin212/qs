@@ -24,14 +24,13 @@ export function CollapsibleCard({ main, small }: CollapsibleDemoProps) {
       onOpenChange={setIsOpen}
       className="w-[350px] space-y-2"
     >
-      <div
-        className=""
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
+      <div className="" onClick={() => setIsOpen((prev) => !prev)}>
         {main}
       </div>
 
-      <CollapsibleContent>{small}</CollapsibleContent>
+      <CollapsibleContent className="CollapsibleContent">
+        {small}
+      </CollapsibleContent>
     </Collapsible>
   );
 }

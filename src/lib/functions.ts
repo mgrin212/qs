@@ -3,14 +3,15 @@
 import { Game, Goal } from "./utils";
 import { RootType } from "./mock";
 
-export async function getGameData() {
+export async function getGameData(date: string) {
   let out: Game[] = [];
 
-  const data = (await fetch(
-    "https://api-web.nhle.com/v1/score/2023-12-03"
-  ).then((r) => r.json())) as RootType;
+  const data = (await fetch(`https://api-web.nhle.com/v1/score/${date}`, {cache: "no-store"}).then(
+    (r) => r.json()
+  )) as RootType;
 
   data.games.forEach((game) => {
+    console.log(game.gameState);
     out.push({
       awayTeam: {
         logoLink: game.awayTeam.logo,
