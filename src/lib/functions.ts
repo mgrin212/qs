@@ -7,7 +7,7 @@ export async function getGameData(date: string) {
   let out: Game[] = [];
 
   const data = (await fetch(`https://api-web.nhle.com/v1/score/${date}`, {
-    cache: "no-store",
+    next: { revalidate: 10 },
   }).then((r) => r.json())) as RootType;
 
   data.games.forEach((game) => {
@@ -33,7 +33,11 @@ export async function getGameData(date: string) {
             player: goal.name.default || "",
             time: goal.timeInPeriod,
             playerLink: goal.mugshot,
-            scoreAtTime: makeScoreAtTime(goal, game.homeTeam.abbrev, game.awayTeam.abbrev),
+            scoreAtTime: makeScoreAtTime(
+              goal,
+              game.homeTeam.abbrev,
+              game.awayTeam.abbrev
+            ),
           } as Goal;
         }) || [],
       period: game.period?.toString() || "",
