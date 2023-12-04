@@ -45,7 +45,7 @@ function ScoreboardCard({ game }: ScoreboardCardProps) {
     if (game.state === "OFF") return "FINAL";
     //check if in intermission
     if (game.clock?.inIntermission) {
-      return "Intermission";
+      return game.clock.timeRemaining;
     }
 
     return timeRemaining;
@@ -60,8 +60,8 @@ function ScoreboardCard({ game }: ScoreboardCardProps) {
         <div className="w-full bg-background p-2 shadow-sm rounded-lg">
           {!game.clock?.inIntermission && (
             <div className="flex flex-row justify-between px-4 font-semibold text-lg">
-              <p>{timeRemainingFactory(game.clock?.timeRemaining)}</p>{" "}
               <p>{periodFactory(game.period)}</p>
+              <p>{timeRemainingFactory(game.clock?.timeRemaining)}</p>{" "}
             </div>
           )}
 

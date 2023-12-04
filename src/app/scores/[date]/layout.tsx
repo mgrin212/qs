@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 export default function RootLayout({
@@ -21,16 +21,25 @@ export default function RootLayout({
   const yesterdayString = yesterday.toISOString().split("T")[0];
   return (
     <div>
-      <Button
-        variant="outline"
-        size="icon"
-        className=" focus:outline-none focus-visible:outline-none"
-      >
-        <ChevronRightIcon className="h-4 w-4" />
-      </Button>
       <div className="">
-        <Link href={`/scores/${yesterdayString}`}>Yesterday</Link>
-        <Link href={`/scores/${tomorrowString}`}>Tomorrow</Link>
+        <Link href={`/scores/${yesterdayString}`}>
+          <Button
+            variant="outline"
+            size="icon"
+            className=" focus:outline-none focus-visible:outline-none"
+          >
+            <ChevronLeftIcon className="h-4 w-4" />
+          </Button>
+        </Link>
+        <Link href={`/scores/${tomorrowString}`}>
+          <Button
+            variant="outline"
+            size="icon"
+            className=" focus:outline-none focus-visible:outline-none"
+          >
+            <ChevronRightIcon className="h-4 w-4" />
+          </Button>
+        </Link>
       </div>
       {children}
     </div>
