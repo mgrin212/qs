@@ -1,7 +1,7 @@
 "use server";
 
 import { Game, Goal } from "./utils";
-import { RootType } from "./mock";
+import { GoalType, RootType } from "./mock";
 
 export async function getGameData(date: string) {
   let out: Game[] = [];
@@ -31,8 +31,9 @@ export async function getGameData(date: string) {
             assist: ["hi"],
             numberOfGoals: goal.goalsToDate,
             player: goal.name.default || "",
-            scoreAtTime: goal.timeInPeriod,
+            time: goal.timeInPeriod,
             playerLink: goal.mugshot,
+            scoreAtTime: makeScoreAtTime(goal, game.homeTeam.abbrev, game.awayTeam.abbrev),
           } as Goal;
         }) || [],
       period: game.period?.toString() || "",
@@ -44,4 +45,19 @@ export async function getGameData(date: string) {
   });
 
   return out;
+}
+
+function makeScoreAtTime(goal: GoalType, home: string, away: string) {
+  //return score of the game with parenthesis around the team that scored
+  //ex: score of 1-2 where home team scores produces -> 1-(2) if the home team scores
+
+  const homeScore = goal.homeScore;
+  const awayScore = goal.awayScore;
+  const team = goal.teamAbbrev;
+
+  if (team === away) {
+    return `${homeScore}-(${awayScore})`;
+  } else {
+    return `(${homeScore})-${awayScore}`;
+  }
 }

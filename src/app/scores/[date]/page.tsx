@@ -1,25 +1,42 @@
 import ScoreboardCard from "@/components/scoreboard-card";
 import { getGameData } from "@/lib/functions";
+import { revalidatePath } from "next/cache";
 
 export default async function Scores({ params }: { params: { date: string } }) {
   const games = await getGameData(params.date);
 
-  //sort games by state, with "LIVE" being first, "PRE" being second, "FUT" third, and "OFF" being last. IF THERE IS A TIE, sort by start time
+  console.log(games.map((game) => game.homeTeam.name));
   games.sort((a, b) => {
-    if (a.state === "LIVE" && b.state !== "LIVE") return -1;
-    if (a.state !== "LIVE" && b.state === "LIVE") return 1;
-    if (a.state === "PRE" && b.state !== "PRE") return -1;
-    if (a.state !== "PRE" && b.state === "PRE") return 1;
-    if (a.state === "FUT" && b.state !== "FUT") return -1;
-    if (a.state !== "FUT" && b.state === "FUT") return 1;
-    if (a.state === "OFF" && b.state !== "OFF") return 1;
-    if (a.state !== "OFF" && b.state === "OFF") return -1;
-    if (a.startTime < b.startTime) return -1;
-    if (a.startTime > b.startTime) return 1;
-    return 0;
+    const stateToNumber = {
+      LIVE: 0,
+      PRE: 1,
+      FUT: 1,
+      OFF: 2,
+      CRIT: 0,
+      FINAL: 2,
+    };
+    // if states are equal, sort by start time, but make sure that order is preserved with priority indicated by stateToNumber
+    // that means LIVE and CRIT should be at the start of the list, and OFF should be at the end
+    if (stateToNumber[a.state] === stateToNumber[b.state]) {
+      if (a.state === "OFF" || a.state === "FINAL") {
+        return 1;
+      }
+      if (a.state === "LIVE" || a.state === "CRIT") {
+        return -1;
+      }
+      //starttime is in UTC formatted string format, so we need to convert it to a date object
+      if (a.state === "PRE" || a.state === "FUT") {
+        const aDate = new Date(a.startTime);
+        const bDate = new Date(b.startTime);
+        return aDate.getTime() - bDate.getTime();
+      }
+    }
+    // if states are not equal, sort by state
+    return stateToNumber[a.state] - stateToNumber[b.state];
   });
+  console.log(games.map((game) => game.homeTeam.name));
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between sm:p-24 py-12 px-2 space-y-2">
+    <main className="flex min-h-screen flex-col items-center justify-between sm:px-24 sm:pb-24 pt-2 pb-12 px-2 space-y-2">
       {games.map((game, i) => (
         <ScoreboardCard key={i} game={game} />
       ))}

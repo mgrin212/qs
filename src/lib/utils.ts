@@ -14,7 +14,7 @@ export interface Game {
   powerPlay: string;
   powerPlayTime: string;
   strength: string;
-  state: "FUT" | "LIVE" | "OFF" | "PRE";
+  state: "FUT" | "LIVE" | "OFF" | "PRE" | "CRIT" | "FINAL";
   clock?: {
     timeRemaining: string;
     secondsRemaining: number;

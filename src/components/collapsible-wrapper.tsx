@@ -1,18 +1,15 @@
 "use client";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export interface CollapsibleDemoProps {
   main: React.ReactNode;
   small: React.ReactNode;
-  show: boolean
+  show: boolean;
 }
 
 export function CollapsibleCard({ main, small, show }: CollapsibleDemoProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const router = useRouter();
 
   return (
     <Collapsible
@@ -24,10 +21,11 @@ export function CollapsibleCard({ main, small, show }: CollapsibleDemoProps) {
         {main}
       </div>
 
-      {show && <CollapsibleContent className="CollapsibleContent">
-        {small}
-      </CollapsibleContent>}
-      <button onClick={() => router.refresh()}>Hi</button>
+      {show && (
+        <CollapsibleContent className="CollapsibleContent h-[110px]">
+          {small}
+        </CollapsibleContent>
+      )}
     </Collapsible>
   );
 }

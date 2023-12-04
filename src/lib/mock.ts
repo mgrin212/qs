@@ -634,3 +634,9 @@ const root = {
 };
 
 export type RootType = typeof root;
+
+export type GoalList = (typeof root.games)[0]["goals"];
+
+type ListElement<T> = T extends (infer U)[] ? U : never;
+
+export type GoalType = ListElement<GoalList>;

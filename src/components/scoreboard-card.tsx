@@ -40,9 +40,8 @@ function ScoreboardCard({ game }: ScoreboardCardProps) {
   }
 
   function timeRemainingFactory(timeRemaining: any) {
-    if (game.state === "FUT" || game.state === "PRE")
-      return "Upcoming";
-    if (game.state === "OFF") return "FINAL";
+    if (game.state === "FUT" || game.state === "PRE") return "Upcoming";
+    if (game.state === "OFF" || game.state === "FINAL") return "FINAL";
     //check if in intermission
     if (game.clock?.inIntermission) {
       return game.clock.timeRemaining;
@@ -57,7 +56,7 @@ function ScoreboardCard({ game }: ScoreboardCardProps) {
   return (
     <CollapsibleCard
       main={
-        <div className="w-full bg-background p-2 shadow-sm rounded-lg">
+        <div className="w-full bg-background p-2  rounded-lg">
           {!game.clock?.inIntermission && (
             <div className="flex flex-row justify-between px-4 font-semibold text-lg">
               <p>{periodFactory(game.period)}</p>

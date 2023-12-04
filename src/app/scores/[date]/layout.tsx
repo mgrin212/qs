@@ -21,7 +21,7 @@ export default function RootLayout({
   const yesterdayString = yesterday.toISOString().split("T")[0];
   return (
     <div>
-      <div className="">
+      <div className="flex flex-row justify-between w-[350px] mx-auto">
         <Link href={`/scores/${yesterdayString}`}>
           <Button
             variant="outline"
@@ -31,6 +31,7 @@ export default function RootLayout({
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
         </Link>
+        <h1 className="flex flex-col justify-center">{params.date}</h1>
         <Link href={`/scores/${tomorrowString}`}>
           <Button
             variant="outline"
