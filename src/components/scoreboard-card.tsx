@@ -76,7 +76,7 @@ function ScoreboardCard({ game }: ScoreboardCardProps) {
         </div>
       }
       small={
-        <div className="w-full flex flex-row overflow-x-scroll no-scrollbar">
+        <div className="w-full flex flex-row overflow-x-scroll no-scrollbar pb-2 pr-2">
           {game.goals.map((goal, i) => (
             <div key={i} className="flex flex-col items-center justify-center">
               <Goalcard goal={goal} />
@@ -84,6 +84,7 @@ function ScoreboardCard({ game }: ScoreboardCardProps) {
           ))}
         </div>
       }
+      show={game.goals.length > 0}
     />
   );
 }

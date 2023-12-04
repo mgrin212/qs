@@ -1,22 +1,18 @@
 "use client";
-
-import * as React from "react";
-import { CaretSortIcon } from "@radix-ui/react-icons";
-
-import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export interface CollapsibleDemoProps {
   main: React.ReactNode;
   small: React.ReactNode;
+  show: boolean
 }
 
-export function CollapsibleCard({ main, small }: CollapsibleDemoProps) {
-  const [isOpen, setIsOpen] = React.useState(false);
+export function CollapsibleCard({ main, small, show }: CollapsibleDemoProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
 
   return (
     <Collapsible
@@ -28,9 +24,10 @@ export function CollapsibleCard({ main, small }: CollapsibleDemoProps) {
         {main}
       </div>
 
-      <CollapsibleContent className="CollapsibleContent mr-2 pb-2">
+      {show && <CollapsibleContent className="CollapsibleContent">
         {small}
-      </CollapsibleContent>
+      </CollapsibleContent>}
+      <button onClick={() => router.refresh()}>Hi</button>
     </Collapsible>
   );
 }
