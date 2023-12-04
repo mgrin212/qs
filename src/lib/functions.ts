@@ -6,12 +6,11 @@ import { RootType } from "./mock";
 export async function getGameData(date: string) {
   let out: Game[] = [];
 
-  const data = (await fetch(`https://api-web.nhle.com/v1/score/${date}`, {cache: "no-store"}).then(
-    (r) => r.json()
-  )) as RootType;
+  const data = (await fetch(`https://api-web.nhle.com/v1/score/${date}`, {
+    cache: "no-store",
+  }).then((r) => r.json())) as RootType;
 
   data.games.forEach((game) => {
-    console.log(game.gameState);
     out.push({
       awayTeam: {
         logoLink: game.awayTeam.logo,
@@ -36,9 +35,11 @@ export async function getGameData(date: string) {
             playerLink: goal.mugshot,
           } as Goal;
         }) || [],
-      period: game.period || "",
+      period: game.period?.toString() || "",
       timeRemaining: game.clock?.timeRemaining || "",
-      powerPlay: game.gameState,
+      state: game.gameState,
+      clock: game.clock,
+      startTime: game.startTimeUTC,
     } as Game);
   });
 

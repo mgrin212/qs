@@ -19,16 +19,18 @@ export default function RootLayout({
   //make tomorrow and yesterday strings in YYYY-MM-DD format
   const tomorrowString = tomorrow.toISOString().split("T")[0];
   const yesterdayString = yesterday.toISOString().split("T")[0];
-
-  console.log(tomorrowString, yesterdayString);
   return (
     <div>
-      <Button variant="outline" size="icon" className=" focus:outline-none focus-visible:outline-none">
+      <Button
+        variant="outline"
+        size="icon"
+        className=" focus:outline-none focus-visible:outline-none"
+      >
         <ChevronRightIcon className="h-4 w-4" />
       </Button>
       <div className="">
-        <Link href={`/scores/${yesterdayString}`}> Yesterday </Link>
-        <Link href={`/scores/${tomorrowString}`}> Tomorrow </Link>
+        <Link href={`/scores/${yesterdayString}`}>Yesterday</Link>
+        <Link href={`/scores/${tomorrowString}`}>Tomorrow</Link>
       </div>
       {children}
     </div>

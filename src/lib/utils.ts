@@ -14,7 +14,14 @@ export interface Game {
   powerPlay: string;
   powerPlayTime: string;
   strength: string;
-  state: "FUT" | "LIVE" | "FINAL";
+  state: "FUT" | "LIVE" | "OFF" | "PRE";
+  clock?: {
+    timeRemaining: string;
+    secondsRemaining: number;
+    running: boolean;
+    inIntermission: boolean;
+  };
+  startTime: string;
 }
 
 export interface Goal {

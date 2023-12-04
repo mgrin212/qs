@@ -22,13 +22,13 @@ export function CollapsibleCard({ main, small }: CollapsibleDemoProps) {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="w-[350px] space-y-2"
+      className="w-[350px] space-y-2 border border-border rounded-lg"
     >
       <div className="" onClick={() => setIsOpen((prev) => !prev)}>
         {main}
       </div>
 
-      <CollapsibleContent className="CollapsibleContent">
+      <CollapsibleContent className="CollapsibleContent mr-2 pb-2">
         {small}
       </CollapsibleContent>
     </Collapsible>

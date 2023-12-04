@@ -8,7 +8,7 @@ export interface GoalcardProps {
 
 function Goalcard({ goal }: GoalcardProps) {
   return (
-    <div className="min-w-max bg-background border border-border p-2 shadow-sm rounded-lg">
+    <div className="w-[300px] bg-background border border-border p-2 rounded-lg ml-2">
       <Avatar>
         <AvatarImage src={goal.playerLink} />
         <AvatarFallback>CN</AvatarFallback>
