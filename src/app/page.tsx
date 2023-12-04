@@ -5,9 +5,7 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
 
-  //get today's date in YYYY-MM-DD format in eastern time
   const today = new Date();
-  today.setHours(today.getHours() - 4);
   const todayString = today.toISOString().split("T")[0];
   redirect(`/scores/${todayString}`);
   return (
