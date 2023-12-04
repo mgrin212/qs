@@ -30,7 +30,7 @@ export async function getGameData(date: string) {
             team: goal.teamAbbrev,
             assist: ["hi"],
             numberOfGoals: goal.goalsToDate,
-            player: goal.name.default,
+            player: goal.name.default || "",
             scoreAtTime: goal.timeInPeriod,
             playerLink: goal.mugshot,
           } as Goal;
